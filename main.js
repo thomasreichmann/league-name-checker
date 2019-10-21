@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const {Kayn, REGIONS} = require('kayn')
 const api = Kayn(process.env.LEAGUE_API_KEY)({
     region: REGIONS.BRAZIL
