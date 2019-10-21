@@ -1,0 +1,25 @@
+{
+  "name": "league-name-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "kayn": "^0.10.2",
+    "node-schedule": "^1.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomasreichmann/league-name-checker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thomasreichmann/league-name-checker/issues"
+  },
+  "homepage": "https://github.com/thomasreichmann/league-name-checker#readme"
+}
