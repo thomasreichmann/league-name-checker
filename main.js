@@ -6,8 +6,10 @@ const api = Kayn(process.env.LEAGUE_API_KEY)({
 var schedule = require('node-schedule');
  
 let j = schedule.scheduleJob('12 * * * *', () => checkName())
+console.log('Started')
 
 function checkName() {
+    console.log(`Name checked at: ${Date.now()}`)
     api.Summoner.by.name('Thomas')
     .then((summoner) => {
         
