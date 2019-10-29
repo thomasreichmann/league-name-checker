@@ -6,6 +6,8 @@ const api = Kayn(process.env.LEAGUE_API_KEY)({
     region: REGIONS.BRAZIL
 })
 
+sendStart()
+
 var schedule = require('node-schedule');
 
 let j = schedule.scheduleJob('3 * * * * *', () => checkName())
@@ -44,6 +46,35 @@ async function sendAlert() {
         subject: 'Nome disponivel',
         text: 'Nome thomas disponivel.'
     });
+
+    console.log('Message sent: %s', info.messageId);
+
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+}
+
+function sendStart() {
+    const nodemailer = require('nodemailer');
+
+    let transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
+        }
+    });
+
+    try {
+        let info = await transporter.sendMail({
+            from: '"Auto Checker" <thomasarojsdfskdfn@gmail.com>',
+            to: 'thomasarojsdfskdfn@gmail.com',
+            subject: 'Testando name-checker email',
+            text: 'Teste'
+        });
+    } catch (e) {
+        console.error(e)
+    }
 
     console.log('Message sent: %s', info.messageId);
 
