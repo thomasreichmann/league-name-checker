@@ -52,7 +52,7 @@ async function sendAlert() {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 }
 
-function sendStart() {
+async function sendStart() {
     const nodemailer = require('nodemailer');
 
     let transporter = nodemailer.createTransport({
