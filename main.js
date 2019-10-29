@@ -72,11 +72,11 @@ async function sendStart() {
             subject: 'Testando name-checker email',
             text: 'Teste'
         });
+
+        console.log('Message sent: %s', info.messageId);
+
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     } catch (e) {
         console.error(e)
     }
-
-    console.log('Message sent: %s', info.messageId);
-
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 }
