@@ -1,3 +1,8 @@
+if (process.env.NODE_ENV != 'production') {
+    require('dotenv').config();
+    console.log(`Dev mode`)
+}
+
 const {
     Kayn,
     REGIONS
@@ -6,7 +11,7 @@ const api = Kayn(process.env.LEAGUE_API_KEY)({
     region: REGIONS.BRAZIL
 })
 
-sendStart()
+// sendStart()
 
 var schedule = require('node-schedule');
 
