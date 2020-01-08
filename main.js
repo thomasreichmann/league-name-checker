@@ -11,28 +11,39 @@ const api = Kayn(process.env.LEAGUE_API_KEY)({
     region: REGIONS.BRAZIL
 })
 
+// Divide a env var NAMES em um array com um nome em casa string
+// Assumindo que os nomes nao contem "," e sao separados com ","
+const names = process.env.NAMES.split(',')
+
 // sendStart()
 
 var schedule = require('node-schedule');
 
-let j = schedule.scheduleJob('3 * * * * *', () => checkName())
+let j = schedule.scheduleJob('3 * * * * *', () => run(names))
+
 console.log('Started')
 
-function checkName() {
-    console.log(`Name checked at: ${Date.now()}`)
-    api.Summoner.by.name('Thomas')
-        .then((summoner) => {
+function run(names) {
+    for(name of names) {
+        checkName(name)
+    }
+}
 
+function checkName(name) {
+    console.log(`Name checked at: ${Date.now()}`)
+    api.Summoner.by.name(name)
+        .then((summoner) => {
+            console.log(`checked name ${summoner.name}`)
         })
         .catch(err => {
             if (err.statusCode == 404) {
-                console.log(`Jogador nao encontrado, Nome disponivel, mandando email`);
-                sendAlert()
+                console.log(`Jogador "${name}" encontrado, Nome disponivel, mandando email`);
+                sendAlert(name)
             }
         })
 }
 
-async function sendAlert() {
+async function sendAlert(name) {
     const nodemailer = require('nodemailer');
 
     let transporter = nodemailer.createTransport({
@@ -48,8 +59,8 @@ async function sendAlert() {
     let info = await transporter.sendMail({
         from: '"Auto Checker" <thomasarojsdfskdfn@gmail.com>',
         to: 'thomasarojsdfskdfn@gmail.com',
-        subject: 'Nome disponivel',
-        text: 'Nome thomas disponivel.'
+        subject: `Nome ${name} disponivel`,
+        text: `Nome ${name} disponivel`
     });
 
     console.log('Message sent: %s', info.messageId);
